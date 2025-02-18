@@ -93,10 +93,9 @@ public class HunterEntity extends TOKEntity implements RangedAttackMob {
     }
 
     @Override
-    public void shootAt(LivingEntity target, float pullProgress) {
-        final ItemStack shotFrom = this.getStackInHand(ProjectileUtil.getHandPossiblyHolding(this, Items.BOW));
-        ItemStack itemStack = this.getProjectileType(shotFrom);
-        PersistentProjectileEntity persistentProjectileEntity = this.createArrowProjectile(itemStack, pullProgress, shotFrom);
+    public void attack(LivingEntity target, float pullProgress) {
+        ItemStack itemStack = this.getProjectileType(this.getStackInHand(ProjectileUtil.getHandPossiblyHolding(this, Items.BOW)));
+        PersistentProjectileEntity persistentProjectileEntity = this.createArrowProjectile(itemStack, pullProgress);
         double d = target.getX() - this.getX();
         double e = target.getBodyY(0.3333333333333333D) - persistentProjectileEntity.getY();
         double f = target.getZ() - this.getZ();

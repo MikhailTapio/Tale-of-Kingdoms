@@ -258,7 +258,7 @@ public class TaleOfKingdoms implements ModInitializer {
 
     public static Text parse(StringReader stringReader, RegistryWrapper.WrapperLookup registries) throws CommandSyntaxException {
         try {
-            Text text = Text.Serialization.fromJson(stringReader.getString(), registries);
+            Text text = Text.Serializer.fromJson(stringReader.getString());
             if (text == null) {
                 throw TextArgumentType.INVALID_COMPONENT_EXCEPTION.createWithContext(stringReader, "empty");
             } else {

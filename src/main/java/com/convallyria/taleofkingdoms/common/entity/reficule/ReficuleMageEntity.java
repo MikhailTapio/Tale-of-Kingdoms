@@ -201,10 +201,9 @@ public class ReficuleMageEntity extends SpellcastingEntity implements Monster, T
     }
 
     @Override
-    public void shootAt(LivingEntity livingEntity, float f) {
-        final ItemStack shotFrom = this.getStackInHand(ProjectileUtil.getHandPossiblyHolding(this, Items.BOW));
-        ItemStack itemStack = this.getProjectileType(shotFrom);
-        PersistentProjectileEntity persistentProjectileEntity = ProjectileUtil.createArrowProjectile(this, itemStack, f, shotFrom);
+    public void attack(LivingEntity livingEntity, float f) {
+        ItemStack itemStack = this.getProjectileType(this.getStackInHand(ProjectileUtil.getHandPossiblyHolding(this, Items.BOW)));
+        PersistentProjectileEntity persistentProjectileEntity = ProjectileUtil.createArrowProjectile(this, itemStack, f);
         double d = livingEntity.getX() - this.getX();
         double e = livingEntity.getBodyY(0.3333333333333333D) - persistentProjectileEntity.getY();
         double g = livingEntity.getZ() - this.getZ();

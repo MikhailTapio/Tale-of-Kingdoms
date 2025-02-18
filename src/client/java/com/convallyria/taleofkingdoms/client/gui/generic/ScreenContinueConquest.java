@@ -31,7 +31,7 @@ public class ScreenContinueConquest extends ScreenTOK {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        super.render(context, mouseX, mouseY, delta);
+        this.renderBackground(context);
         context.drawCenteredTextWithShadow(this.textRenderer, MinecraftClient.getInstance().player.getName().getString()
                 + ", your conquest, "
                 + instance.getName() + ", has come far.", this.width / 2, this.height / 2 + 40, 0xFFFFFF);

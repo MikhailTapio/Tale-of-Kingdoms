@@ -152,7 +152,7 @@ public class ConquestInstance {
     }
 
     public Vec3d getCentre() {
-        return Box.enclosing(start, end).getCenter();
+        return new Box(start, end).getCenter();
     }
 
     public boolean canAttack(PlayerEntity player) {
@@ -251,13 +251,13 @@ public class ConquestInstance {
 
     public Optional<GuildMasterEntity> getGuildMaster(World world) {
         if (start == null || end == null) return Optional.empty();
-        Box box = Box.enclosing(getStart(), getEnd());
+        Box box = new Box(getStart(), getEnd());
         return world.getEntitiesByType(EntityTypes.GUILDMASTER, box, guildMaster -> !guildMaster.isFireImmune()).stream().findFirst();
     }
 
     public <T extends Entity> Optional<T> getGuildEntity(World world, EntityType<T> type) {
         if (start == null || end == null) return Optional.empty();
-        Box box = Box.enclosing(getStart(), getEnd());
+        Box box = new Box(getStart(), getEnd());
         return world.getEntitiesByType(type, box, entity -> true).stream().findFirst();
     }
 
