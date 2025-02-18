@@ -66,6 +66,7 @@ public class HunterEntity extends TOKEntity implements RangedAttackMob {
 
     public static DefaultAttributeContainer.Builder createMobAttributes() {
         return TOKEntity.createMobAttributes()
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 40.0D)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 15.0D)
                 .add(EntityAttributes.GENERIC_ATTACK_KNOCKBACK, 1.0D)
                 .add(EntityAttributes.GENERIC_FOLLOW_RANGE, 30.0D);
@@ -104,8 +105,8 @@ public class HunterEntity extends TOKEntity implements RangedAttackMob {
         this.getWorld().spawnEntity(persistentProjectileEntity);
     }
 
-    protected PersistentProjectileEntity createArrowProjectile(ItemStack arrow, float damageModifier) {
-        return ProjectileUtil.createArrowProjectile(this, arrow, damageModifier);
+    protected PersistentProjectileEntity createArrowProjectile(ItemStack arrow, float damageModifier, ItemStack shotFrom) {
+        return ProjectileUtil.createArrowProjectile(this, arrow, damageModifier, shotFrom.isEmpty() ? null : shotFrom);
     }
 
     public void updateAttackType() {

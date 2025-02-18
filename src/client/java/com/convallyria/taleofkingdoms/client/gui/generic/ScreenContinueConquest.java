@@ -37,7 +37,6 @@ public class ScreenContinueConquest extends ScreenTOK {
                 + instance.getName() + ", has come far.", this.width / 2, this.height / 2 + 40, 0xFFFFFF);
         context.drawCenteredTextWithShadow(this.textRenderer, "Now you seek to venture further, and continue your journey.", this.width / 2, this.height / 2 + 50, 0xFFFFFF);
         context.drawCenteredTextWithShadow(this.textRenderer, "Safe travels, and go forth!", this.width / 2, this.height / 2 + 60, 0xFFFFFF);
-        super.render(context, mouseX, mouseY, delta);
     }
 
     @Override

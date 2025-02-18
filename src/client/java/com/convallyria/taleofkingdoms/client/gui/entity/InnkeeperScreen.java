@@ -2,11 +2,11 @@ package com.convallyria.taleofkingdoms.client.gui.entity;
 
 import com.convallyria.taleofkingdoms.TaleOfKingdoms;
 import com.convallyria.taleofkingdoms.TaleOfKingdomsAPI;
-import com.convallyria.taleofkingdoms.client.TaleOfKingdomsClientAPI;
 import com.convallyria.taleofkingdoms.client.gui.ScreenTOK;
-import com.convallyria.taleofkingdoms.common.translation.Translations;
 import com.convallyria.taleofkingdoms.common.entity.guild.InnkeeperEntity;
 import com.convallyria.taleofkingdoms.common.packet.Packets;
+import com.convallyria.taleofkingdoms.common.packet.c2s.InnkeeperActionPacket;
+import com.convallyria.taleofkingdoms.common.translation.Translations;
 import com.convallyria.taleofkingdoms.common.utils.BlockUtils;
 import com.convallyria.taleofkingdoms.common.world.ConquestInstance;
 import com.convallyria.taleofkingdoms.common.world.guild.GuildPlayer;
@@ -48,13 +48,16 @@ public class InnkeeperScreen extends ScreenTOK {
 
                 final GuildPlayer guildPlayer = conquestInstance.getPlayer(player.getUuid());
                 if (guildPlayer.getCoins() < 10) {
+                    Translations.INNKEEPER_NOT_ENOUGH_COINS.send(player);
                     return;
+                } else {
+                    Translations.INNKEEPER_REST_SUCCESS.send(player);
                 }
 
                 MinecraftServer server = MinecraftClient.getInstance().getServer();
                 if (server == null) {
-                    ((TaleOfKingdomsClientAPI) api).getClientPacketHandler(Packets.INNKEEPER_HIRE_ROOM)
-                            .handleOutgoingPacket(player, true);
+                    api.getClientPacket(Packets.INNKEEPER_HIRE_ROOM)
+                            .sendPacket(player, new InnkeeperActionPacket(true));
                     return;
                 }
 
@@ -62,7 +65,7 @@ public class InnkeeperScreen extends ScreenTOK {
                     adjustTime(server, 1000);
                     ServerPlayerEntity serverPlayerEntity = MinecraftClient.getInstance().getServer().getPlayerManager().getPlayer(player.getUuid());
                     if (serverPlayerEntity == null) return;
-                    serverPlayerEntity.teleport(rest.getX() + 0.5, rest.getY(), rest.getZ() + 0.5);
+                    serverPlayerEntity.requestTeleport(rest.getX() + 0.5, rest.getY(), rest.getZ() + 0.5);
                     serverPlayerEntity.refreshPositionAfterTeleport(rest.getX() + 0.5, rest.getY(), rest.getZ() + 0.5);
                     serverPlayerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.BLINDNESS, 100, 1));
                     serverPlayerEntity.addStatusEffect(new StatusEffectInstance(StatusEffects.NAUSEA, 200, 0));
@@ -82,12 +85,15 @@ public class InnkeeperScreen extends ScreenTOK {
 
             final GuildPlayer guildPlayer = conquestInstance.getPlayer(player.getUuid());
             if (guildPlayer.getCoins() < 10) {
+                Translations.INNKEEPER_NOT_ENOUGH_COINS.send(player);
                 return;
+            } else {
+                Translations.INNKEEPER_WAIT_SUCCESS.send(player);
             }
 
             if (server == null) {
-                ((TaleOfKingdomsClientAPI) api).getClientPacketHandler(Packets.INNKEEPER_HIRE_ROOM)
-                        .handleOutgoingPacket(player, false);
+                api.getClientPacket(Packets.INNKEEPER_HIRE_ROOM)
+                        .sendPacket(player, new InnkeeperActionPacket(false));
                 return;
             }
 
@@ -97,6 +103,7 @@ public class InnkeeperScreen extends ScreenTOK {
 
         this.addDrawableChild(ButtonWidget.builder(Text.translatable("menu.taleofkingdoms.generic.exit"), widget -> {
             this.close();
+            Translations.INNKEEPER_LEAVE.send(player);
         }).dimensions(this.width / 2 - 75, this.height / 4 + 100, 150, 20).build());
     }
 
@@ -121,11 +128,5 @@ public class InnkeeperScreen extends ScreenTOK {
     @Override
     public boolean shouldCloseOnEsc() {
         return true;
-    }
-
-    @Override
-    public void close() {
-        super.close();
-        Translations.INNKEEPER_LEAVE.send(player);
     }
 }

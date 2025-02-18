@@ -123,7 +123,6 @@ public class ScreenStartConquest extends ScreenTOK {
         context.drawCenteredTextWithShadow(this.textRenderer, Translations.HERO.getFormatted(), this.width / 2, currentHeight + 10, 0xFFFFFF);
         context.drawCenteredTextWithShadow(this.textRenderer, Text.translatable("menu.taleofkingdoms.startconquest.exit"), this.width / 2, currentHeight + 65, 0xFFFFFF);
         this.text.render(context, mouseX, mouseY, delta);
-        super.render(context, mouseX, mouseY, delta);
     }
 
     @Override

@@ -24,13 +24,11 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.entity.projectile.ProjectileUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.RangedWeaponItem;
-import net.minecraft.nbt.NbtCompound;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
@@ -113,10 +111,10 @@ public class BanditEntity extends TOKEntity implements CrossbowUser, RangedAttac
 
     @Nullable
     @Override
-    public EntityData initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData, @Nullable NbtCompound nbtCompound) {
+    public EntityData initialize(ServerWorldAccess serverWorldAccess, LocalDifficulty localDifficulty, SpawnReason spawnReason, @Nullable EntityData entityData) {
         this.initEquipment(random, localDifficulty);
-        this.updateEnchantments(random, localDifficulty);
-        return super.initialize(serverWorldAccess, localDifficulty, spawnReason, entityData, nbtCompound);
+        this.updateEnchantments(serverWorldAccess, random, localDifficulty);
+        return super.initialize(serverWorldAccess, localDifficulty, spawnReason, entityData);
     }
 
     @Override
@@ -201,13 +199,8 @@ public class BanditEntity extends TOKEntity implements CrossbowUser, RangedAttac
         this.getWorld().spawnEntity(persistentProjectileEntity);
     }
 
-    @Override
-    public void shoot(LivingEntity target, ItemStack crossbow, ProjectileEntity projectile, float multiShotSpray) {
-        this.shoot(this, target, projectile, multiShotSpray, 1.6F);
-    }
-
-    protected PersistentProjectileEntity createArrowProjectile(ItemStack arrow, float damageModifier) {
-        return ProjectileUtil.createArrowProjectile(this, arrow, damageModifier);
+    protected PersistentProjectileEntity createArrowProjectile(ItemStack arrow, float damageModifier, ItemStack shotFrom) {
+        return ProjectileUtil.createArrowProjectile(this, arrow, damageModifier, shotFrom.isEmpty() ? null : shotFrom);
     }
 
     @Override
