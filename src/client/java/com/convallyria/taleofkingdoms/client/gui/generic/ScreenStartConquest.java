@@ -112,7 +112,7 @@ public class ScreenStartConquest extends ScreenTOK {
 
     @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
-        this.renderBackground(context, mouseX, mouseY, delta);
+        this.renderBackground(context);
         String text = Translations.DARKNESS.getFormatted();
         int currentHeight = this.height / 2 - 110;
         for (String toRender : text.split("\n")) {

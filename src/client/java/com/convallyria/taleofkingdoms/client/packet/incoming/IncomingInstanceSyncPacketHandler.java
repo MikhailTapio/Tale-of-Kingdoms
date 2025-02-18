@@ -29,8 +29,8 @@ public final class IncomingInstanceSyncPacketHandler extends ClientPacketHandler
                 System.out.println(text);
                 if (client.player != null) client.player.sendMessage(Text.literal(text));
             }
-
-            final String id = client.getGameProfile().getId().toString();
+            final PlayerEntity player = context.player();
+            final String id = player.getUuidAsString();
             final TaleOfKingdomsAPI api = TaleOfKingdoms.getAPI();
             final ConquestInstance existing = api.getConquestInstanceStorage().getConquestInstance(id).orElse(null);
             if (existing != null) {

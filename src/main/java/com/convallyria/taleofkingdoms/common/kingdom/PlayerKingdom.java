@@ -57,7 +57,7 @@ public class PlayerKingdom {
 
     public <T extends Entity> Optional<T> getKingdomEntity(World world, EntityType<T> type) {
         if (start == null || end == null) return Optional.empty();
-        Box box = Box.enclosing(start, end);
+        Box box = new Box(start, end);
         return world.getEntitiesByType(type, box, entity -> true).stream().findFirst();
     }
 

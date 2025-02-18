@@ -20,16 +20,16 @@ import net.minecraft.world.World;
 
 public class SellBlock extends BlockWithEntity {
 
-    public static final MapCodec<? extends BlockWithEntity> CODEC = MapCodec.unit(() -> new SellBlock(FabricBlockSettings.copyOf(Blocks.CHEST)));
+    //public static final MapCodec<? extends BlockWithEntity> CODEC = MapCodec.unit(() -> new SellBlock(FabricBlockSettings.copyOf(Blocks.CHEST)));
 
     public SellBlock(Settings settings) {
         super(settings);
     }
 
-    @Override
-    protected MapCodec<? extends BlockWithEntity> getCodec() {
-        return CODEC;
-    }
+    //@Override
+    //protected MapCodec<? extends BlockWithEntity> getCodec() {
+    //    return CODEC;
+    //}
 
     @Override
     public BlockEntity createBlockEntity(BlockPos blockPos, BlockState blockState) {

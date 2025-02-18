@@ -112,7 +112,7 @@ public abstract class WardenHireable extends TOKEntity {
             double f = this.random.nextGaussian() * 0.02;
             this.getWorld().addParticle(ParticleTypes.HAPPY_VILLAGER, this.getParticleX(1.0), this.getRandomBodyY() + 1.0, this.getParticleZ(1.0), d, e, f);
         }
-        this.getWorld().playSoundFromEntity(this, SoundEvents.BLOCK_ANVIL_USE, SoundCategory.PLAYERS, 1f, 1f);
+        this.getWorld().playSoundFromEntity(null, this, SoundEvents.BLOCK_ANVIL_USE, SoundCategory.PLAYERS, 1f, 1f);
     }
 
     @Override
